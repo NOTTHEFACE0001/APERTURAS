@@ -6,20 +6,12 @@ from threading import Thread
 import os
 
 # ==========================================
-# 🖼️ ENLACES DE IMÁGENES (CORRECCIÓN FINAL)
+# 🖼️ VARIABLES DE IMÁGENES (TOTALMENTE FIJAS)
 # ==========================================
-# Logo circular de la comunidad (thumbnail)
 URL_LOGO = "https://cdn.discordapp.com/attachments/1497999534759084032/1498004220131934268/WhatsApp_Image_2026-04-24_at_14.47.16-removebg-preview.png"
-
-# Imagen para ABIERTO (Foto de Carabineros - Terminada en 211448)
-URL_BANNER_ABIERTO = "https://cdn.discordapp.com/attachments/1497999534759084032/1503084596177277080/Captura_de_pantalla_2026-05-07_211448.jpg"
-
-# Imagen para ENCUESTA (Foto de Bomberos - Terminada en 125245)
-URL_BANNER_ENCUESTA = "https://cdn.discordapp.com/attachments/1497999534759084032/1503081674538221568/Captura_de_pantalla_2026-05-10_125245.jpg"
-
-# Imagen para CERRADO (Foto de la PDI - Terminada en 125631)
-URL_BANNER_CERRADO = "https://cdn.discordapp.com/attachments/1497999534759084032/1503082415990636727/Captura_de_pantalla_2026-05-10_125631.jpg"
-# ==========================================
+IMG_CARABINEROS = "https://cdn.discordapp.com/attachments/1497999534759084032/1503084596177277080/Captura_de_pantalla_2026-05-07_211448.jpg"
+IMG_BOMBEROS = "https://cdn.discordapp.com/attachments/1497999534759084032/1503081674538221568/Captura_de_pantalla_2026-05-10_125245.jpg"
+IMG_PDI = "https://cdn.discordapp.com/attachments/1497999534759084032/1503082415990636727/Captura_de_pantalla_2026-05-10_125631.jpg"
 
 app = Flask('')
 @app.route('/')
@@ -37,54 +29,34 @@ async def on_ready():
     print(f'✅ Bot Gran Chile RP Activado: {bot.user}')
 
 # --- 🟢 COMANDO: ABRIR SERVIDOR ---
-@bot.tree.command(name="abrir_servidor", description="Anuncio oficial con código GCRPCM")
+@bot.tree.command(name="abrir_servidor", description="Anuncio oficial con foto de Carabineros")
 async def abrir(interaction: discord.Interaction, horario_cierre: str):
-    embed = discord.Embed(
-        title="✨ ¡SERVIDOR ABIERTO! ✨",
-        description="**GRAN CHILE RP**\n¡La ciudad ya está disponible para todos!",
-        color=0x2ecc71
-    )
-    
-    embed.add_field(name="🆔 CÓDIGO DEL SERVIDOR", value="`GCRPCM`", inline=False)
+    embed = discord.Embed(title="✨ ¡SERVIDOR ABIERTO! ✨", color=0x2ecc71)
+    embed.add_field(name="🆔 CÓDIGO", value="`GCRPCM` Concordancia", inline=False)
     embed.add_field(name="🕒 CIERRE ESTIMADO", value=f"**{horario_cierre}**", inline=True)
     embed.add_field(name="🎙️ HOST", value=interaction.user.mention, inline=True)
-    embed.add_field(name="📢 AVISO", value="Recuerda seguir las reglas y disfrutar del rol.", inline=False)
-    
+    embed.set_image(url=IMG_CARABINEROS) # Foto de Carabineros
     embed.set_thumbnail(url=URL_LOGO)
-    embed.set_image(url=URL_BANNER_ABIERTO)
-    embed.set_footer(text="GCRPCM System • Gran Chile RP", icon_url=URL_LOGO)
-    
+    embed.set_footer(text="GCRPCM System", icon_url=URL_LOGO)
     await interaction.response.send_message("@everyone", embed=embed)
 
 # --- ❌ COMANDO: CERRAR SERVIDOR ---
-@bot.tree.command(name="cerrar_servidor", description="Anuncio de fin de sesión")
+@bot.tree.command(name="cerrar_servidor", description="Anuncio de cierre con foto de la PDI")
 async def cerrar(interaction: discord.Interaction):
-    embed = discord.Embed(
-        title="⛔ ¡SERVIDOR CERRADO! ⛔",
-        description="**GRAN CHILE RP**\nGracias por acompañarnos en la sesión de hoy.",
-        color=0xe74c3c
-    )
-    
+    embed = discord.Embed(title="⛔ ¡SERVIDOR CERRADO! ⛔", color=0xe74c3c)
     embed.add_field(name="🌐 ESTADO", value="OFFLINE", inline=True)
     embed.add_field(name="⚒️ FINALIZADO POR", value=interaction.user.mention, inline=True)
-    
+    embed.set_image(url=IMG_PDI) # Foto de la PDI
     embed.set_thumbnail(url=URL_LOGO)
-    embed.set_image(url=URL_BANNER_CERRADO)
-    embed.set_footer(text="GCRPCM System • ¡Nos vemos pronto!", icon_url=URL_LOGO)
-    
+    embed.set_footer(text="GCRPCM System", icon_url=URL_LOGO)
     await interaction.response.send_message("@everyone", embed=embed)
 
 # --- 🗳️ COMANDO: VOTACIÓN ---
-@bot.tree.command(name="votar_apertura", description="Votación estética de sesión")
-async def votar_apertura(interaction: discord.Interaction):
-    embed = discord.Embed(
-        title="📊 ¿ABRIMOS SESIÓN?",
-        description="Vota con las reacciones de abajo si quieres que el servidor abra ahora mismo.",
-        color=0x3498db
-    )
-    embed.set_image(url=URL_BANNER_ENCUESTA)
-    embed.set_footer(text="GCRPCM System", icon_url=URL_LOGO)
-    
+@bot.tree.command(name="votar_apertura", description="Votación con foto de Bomberos")
+async def votar(interaction: discord.Interaction):
+    embed = discord.Embed(title="📊 ¿ABRIMOS SESIÓN?", color=0x3498db)
+    embed.description = "Vota con las reacciones si quieres abrir el servidor."
+    embed.set_image(url=IMG_BOMBEROS) # Foto de Bomberos
     await interaction.response.send_message(embed=embed)
     msg = await interaction.original_response()
     await msg.add_reaction("✅")
