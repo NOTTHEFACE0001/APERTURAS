@@ -6,18 +6,18 @@ from threading import Thread
 import os
 
 # ==========================================
-# 🖼️ ENLACES DE IMÁGENES (YA CORREGIDOS)
+# 🖼️ ENLACES DE IMÁGENES (CORRECCIÓN FINAL)
 # ==========================================
 # Logo circular de la comunidad (thumbnail)
 URL_LOGO = "https://cdn.discordapp.com/attachments/1497999534759084032/1498004220131934268/WhatsApp_Image_2026-04-24_at_14.47.16-removebg-preview.png"
 
-# Imagen para ABIERTO (Foto de Carabineros que me pasaste)
+# Imagen para ABIERTO (Foto de Carabineros - Terminada en 211448)
 URL_BANNER_ABIERTO = "https://cdn.discordapp.com/attachments/1497999534759084032/1503084596177277080/Captura_de_pantalla_2026-05-07_211448.jpg"
 
-# Imagen para ENCUESTA (Foto de Bomberos que dice "ENCUESTA")
+# Imagen para ENCUESTA (Foto de Bomberos - Terminada en 125245)
 URL_BANNER_ENCUESTA = "https://cdn.discordapp.com/attachments/1497999534759084032/1503081674538221568/Captura_de_pantalla_2026-05-10_125245.jpg"
 
-# Imagen para CERRADO (Foto de la PDI que dice "SERVIDOR CERRADO")
+# Imagen para CERRADO (Foto de la PDI - Terminada en 125631)
 URL_BANNER_CERRADO = "https://cdn.discordapp.com/attachments/1497999534759084032/1503082415990636727/Captura_de_pantalla_2026-05-10_125631.jpg"
 # ==========================================
 
@@ -41,9 +41,8 @@ async def on_ready():
 async def abrir(interaction: discord.Interaction, horario_cierre: str):
     embed = discord.Embed(
         title="✨ ¡SERVIDOR ABIERTO! ✨",
-        # Cambiado de "CHILE ROLEPLAY COMMUNITY" a "GRAN CHILE RP"
         description="**GRAN CHILE RP**\n¡La ciudad ya está disponible para todos!",
-        color=0x2ecc71 # Verde esmeralda
+        color=0x2ecc71
     )
     
     embed.add_field(name="🆔 CÓDIGO DEL SERVIDOR", value="`GCRPCM`", inline=False)
@@ -52,7 +51,7 @@ async def abrir(interaction: discord.Interaction, horario_cierre: str):
     embed.add_field(name="📢 AVISO", value="Recuerda seguir las reglas y disfrutar del rol.", inline=False)
     
     embed.set_thumbnail(url=URL_LOGO)
-    embed.set_image(url=URL_BANNER_ABIERTO) # Ahora sí, foto de Carabineros
+    embed.set_image(url=URL_BANNER_ABIERTO)
     embed.set_footer(text="GCRPCM System • Gran Chile RP", icon_url=URL_LOGO)
     
     await interaction.response.send_message("@everyone", embed=embed)
@@ -62,16 +61,15 @@ async def abrir(interaction: discord.Interaction, horario_cierre: str):
 async def cerrar(interaction: discord.Interaction):
     embed = discord.Embed(
         title="⛔ ¡SERVIDOR CERRADO! ⛔",
-        # Actualizado también aquí para mantener consistencia
         description="**GRAN CHILE RP**\nGracias por acompañarnos en la sesión de hoy.",
-        color=0xe74c3c # Rojo pasión
+        color=0xe74c3c
     )
     
     embed.add_field(name="🌐 ESTADO", value="OFFLINE", inline=True)
     embed.add_field(name="⚒️ FINALIZADO POR", value=interaction.user.mention, inline=True)
     
     embed.set_thumbnail(url=URL_LOGO)
-    embed.set_image(url=URL_BANNER_CERRADO) # Foto de la PDI
+    embed.set_image(url=URL_BANNER_CERRADO)
     embed.set_footer(text="GCRPCM System • ¡Nos vemos pronto!", icon_url=URL_LOGO)
     
     await interaction.response.send_message("@everyone", embed=embed)
@@ -84,7 +82,7 @@ async def votar_apertura(interaction: discord.Interaction):
         description="Vota con las reacciones de abajo si quieres que el servidor abra ahora mismo.",
         color=0x3498db
     )
-    embed.set_image(url=URL_BANNER_ENCUESTA) # Ahora sí, foto de Bomberos que dice "ENCUESTA"
+    embed.set_image(url=URL_BANNER_ENCUESTA)
     embed.set_footer(text="GCRPCM System", icon_url=URL_LOGO)
     
     await interaction.response.send_message(embed=embed)
